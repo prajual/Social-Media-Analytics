@@ -3,9 +3,9 @@ This Project was a one stop solution for all the Social Media sites, including F
 
 I have made 5 different analysis for Tumblr, 4 different analysis for Facebook, 3 different analysis for Youtube, 3 different analysis for Twitter and 3 different analysis for Reddit and 2 different analysis for Instagram.
 
-# Facebook
-# Twitter
-# Tumblr
-# Youtube
-# Instagram
-# Reddit
+## Facebook
+## Twitter
+## Tumblr
+## Youtube
+## Instagram
+## Reddit
