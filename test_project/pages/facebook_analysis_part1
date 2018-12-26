@@ -1,0 +1,48 @@
+def facebook():
+	import requests 
+	import matplotlib.pyplot as plt
+	import json 
+	import pandas as pd
+	import nltk
+	import re
+	params = {'access_token':'EAAEMGxdZBCy4BAO3MFGlZBFgAZCxrGh4Ux3MHHYoWrw8uUYHEThv5LnfDoaDvuXbXG27ZAnE69X88EoeN1ZB6XJySFBsHfrGi751Vn4S4kDZAXwwOR6a8DM3nF5R9zyErWz9KQ7dptSPWWdp8uU1wdQhgAIMaoUsEZD'}
+	from pymongo import MongoClient
+	page_url = 'https://graph.facebook.com/v2.8/me/feed?fields=id,message,reactions,shares,from,caption,created_time,likes.summary(true)'
+	comments_url = 'https://graph.facebook.com/v2.8/{post_id}/comments?filter=stream&limit=100'
+	client = MongoClient('localhost:27017')
+	db = client.facebook
+	collection_posts=db.posts
+	collection_comments=db.comments
+	posts = requests.get(page_url, params = params).json()
+	while True:
+    		try:
+        		for element in posts['data']:
+            			collection_posts.insert_one(element)
+            			this_comment_url = comments_url.replace("{post_id}",element['id'])
+            			comments=requests.get(this_comment_url,params=params).json()
+            			while ('paging' in comments and 'cursors' in comments['paging'] and 'after' in comments['paging']['cursors']): 
+                			for comment in comments['data']:
+                    				comment['post_id']=element['id']
+                    				collection_comments.insert_one(comment) 
+                			comments = requests.get(this_comment_url + '&after=' + comments['paging']['cursors']['after'], params = params).json()  
+        		posts=requests.get(posts['paging']['next']).json()   
+    		except Exception as e:       
+        		break 
+	posts_data=[]
+	comments_data=[]
+	for doc in collection_posts.find({}):
+    		try:
+        		posts_data.append((doc['message'],doc['created_time'],doc['likes']['summary']['total_count'],doc['shares']['count'],doc['id']))
+    		except:
+        		pass
+
+	for comment in collection_comments.find({}):
+    		try:
+        		comments_data.append((comment['message'],comment['created_time'],comment['post_id']))
+   		 except:
+        		pass
+	df_posts=pd.DataFrame(posts_data)
+	df_comments=pd.DataFrame(comments_data)
+	df_posts.columns=['message','Created Time','Number of Likes','Shares','post_id']
+	df_comments.columns=['message','Created Time','post_id']
+

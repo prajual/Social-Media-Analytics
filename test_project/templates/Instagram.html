@@ -1,0 +1,25 @@
+<html>
+<body bgcolor="#00FF7F">
+<div class="text">
+<center>
+<a href="http://stsolutions.co.in/" target="_blank"><h2 class="start">Follow These 6 Simple Steps to generate your Access token</h2></a><br>
+ </center>
+    Step 1: Click the Following link and <a href="https://www.instagram.com/developer/" target="_blank"><span>Login with your Instagram Credentials<br></span></a>
+     Step 2: Click on <font color="red">Register Your Application</font> button at the bottom in blue color and then click <font color="red">Register New Client</font>.<br>
+     Step 3: Put any Application Name of your choice, write anything in the description, website URL should be : <font color="red">http://prajual.com</font> and redirect URIs will be: <font color="red">https://www.google.com/</font>.<br>
+     Step 4: Click on <font color="red">Manage</font> your app (the app you just created) and then go to <font color="red">security tab</font> and uncheck the box of <font color="red">Disable implicit OAuth</font> at the bottom and than <font color="red">update Client</font>.  
+<form action="{% url 'user1' %}" method="POST">
+     Step 5: Copy the Client ID given in the description of the APP and paste it in this box and Click the Following Button: 
+   <input type="text" name="App_id"><br>
+   <input type="submit" value="Generate" id="toggle1"/> <br>
+   {% csrf_token %}
+   </form>
+     Step 6: Then look at the Google page's URL, there is a access token in it<br><br>
+
+<center>
+Copy this token and use it to run your Instagram Analysis.
+</center>     
+</div>
+<br>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<html>
+<body bgcolor="#9ACD32">
+<div class="text">
+<center>
+<a href="http://stsolutions.co.in/" target="_blank"><h2 class="start">Follow These 5 Simple Steps to generate your Access token</h2></a><br>
+ </center>
+    Step 1: Click the Following link and <a href="https://developers.facebook.com/docs/graph-api/" target="_blank"><span>Login with your Facebook Credentials<br></span></a>
+     Step 2: Click on <font color="red">My Apps</font> button in the menu and then click <font color="red">Create New App</font>.<br>
+     Step 3: Put any Display Name of your choice and click <font color="red">Create App ID</font> button. Fill in the <font color="red">Captcha</font> that appears.<br>
+   <form action="{% url 'user' %}" method="POST">
+     Step 4: Copy the APP ID(given on the top in Bold) and paste it in this box and Click the Following Button: 
+   <input type="text" name="App_id"><br>
+   <input type="submit" value="Generate" id="toggle1"/> <br>
+   {% csrf_token %}
+   </form>
+     Step 5: Than Click the <font color="red">Get Access Token</font> Button and Click <font color="red">Continue</font> on the pop-up window that appears.<br><br>
+
+<center>
+Copy this token and use it to run your facebook Analysis.
+</center>     
+</div>
+<br>
+</body>
+</html>
